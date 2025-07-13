@@ -1,0 +1,95 @@
+script_js = """const materias = [
+  {
+    año: "Primer Año",
+    items: [
+      "Introducción al derecho",
+      "Elementos de Política y Sociedad",
+      "Derecho Constitucional Político",
+      "Introducción al Ejercicio Profesional",
+      "Historia del Derecho",
+      "Derechos Humanos desde la Perspectiva Internacional",
+      "Derecho Penal (Parte General)",
+      "Derecho Privado (Parte General)",
+      "Análisis Económico del Derecho",
+      "Taller de Argumentación e Interpretación Jurídica"
+    ]
+  },
+  {
+    año: "Segundo Año",
+    items: [
+      "Derecho de las Obligaciones",
+      "Derecho y Práctica Procesal Civil y Comercial",
+      "Derecho Penal (Parte Especial)",
+      "Taller de Oratoria",
+      "Filosofía del Derecho",
+      "Contratos Civiles y Comerciales",
+      "Derecho de la Responsabilidad Civil. Daños",
+      "Derecho y Práctica Procesal Penal",
+      "Taller de Negociación, Conciliación y Mediación",
+      "Taller de Arbitraje",
+      "Optativa I"
+    ]
+  },
+  {
+    año: "Tercer Año",
+    items: [
+      "Derecho Reales",
+      "Derecho Constitucional Procesal",
+      "Derecho del Trabajo y de la Seguridad Social",
+      "Derecho Administrativo I",
+      "Derecho del Consumidor y del Usuario",
+      "Derecho de la Empresa y Sociedades",
+      "Derecho Administrativo II y Práctica Procesal Administrativa",
+      "Derecho de Familia",
+      "Derecho de los Recursos Naturales y Protección del Ambiente",
+      "Optativa II"
+    ]
+  },
+  {
+    año: "Cuarto Año",
+    items: [
+      "Derecho de las Sucesiones",
+      "Concursos y Papeles de Comercio",
+      "Derecho de las Finanzas Públicas y Tributario",
+      "Derecho de Marcas, Patentes y Propiedad Industrial",
+      "Derecho Internacional Público y de la Integración",
+      "Derecho de los Mercados Financieros",
+      "Derecho Internacional Privado",
+      "Derecho de las Nuevas Tecnologías",
+      "Ética y Deontología Profesional",
+      "Taller de Metodología de la Investigación"
+    ]
+  }
+];
+
+const container = document.getElementById("grid-container");
+
+materias.forEach(bloque => {
+  const title = document.createElement("h2");
+  title.textContent = bloque.año;
+  container.appendChild(title);
+
+  bloque.items.forEach(materia => {
+    const div = document.createElement("div");
+    div.className = "card pendiente";
+    div.textContent = materia;
+
+    // Cargar estado guardado
+    const savedState = localStorage.getItem(materia);
+    if (savedState) div.className = "card " + savedState;
+
+    div.onclick = () => {
+      if (div.classList.contains("pendiente")) {
+        div.className = "card regular";
+        localStorage.setItem(materia, "regular");
+      } else if (div.classList.contains("regular")) {
+        div.className = "card aprobada";
+        localStorage.setItem(materia, "aprobada");
+      } else {
+        div.className = "card pendiente";
+        localStorage.setItem(materia, "pendiente");
+      }
+    };
+    container.appendChild(div);
+  });
+});"""
